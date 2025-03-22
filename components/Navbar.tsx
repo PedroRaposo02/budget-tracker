@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "./ui/button";
 import { UserButton } from "@clerk/nextjs";
 import { ThemeSwitcherBtn } from "./ThemeSwitcherBtn";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Menu } from "lucide-react";
 
 function Navbar() {
@@ -24,13 +24,14 @@ const items = [
 	{ label: "Dashboard", link: "/" },
 	{ label: "Transactions", link: "/transactions" },
 	{ label: "Manage", link: "/manage" },
+	{ label: "Settings", link: "/wizard" },
 ];
 
 function MobileNavbar() {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<div className="block border-separate bg-background md:hidden">
+		<div className="flex border-separate bg-background md:hidden justify-center">
 			<nav className="container flex items-center justify-between px-8">
 				<Sheet open={isOpen} onOpenChange={setIsOpen}>
 					<SheetTrigger asChild>
@@ -38,13 +39,16 @@ function MobileNavbar() {
 							<Menu />
 						</Button>
 					</SheetTrigger>
-					<SheetContent className="w-[400px] sm:w-[540px]" side="left">
-						<Logo />
+					<SheetContent className="w-[350px] sm:w-[540px]" side="left">
+						<SheetTitle className="pt-2 pl-2">
+							<Logo />
+						</SheetTitle>
+
 						<div className="flex flex-col gap-1 pt-4">
 							{items.map((item) => (
 								<NavbarItem
 									key={item.label}
-									link={item.link} 
+									link={item.link}
 									label={item.label}
 									clickCallback={() => setIsOpen((prev) => !prev)}
 								/>
@@ -66,7 +70,7 @@ function MobileNavbar() {
 
 function DesktopNavbar() {
 	return (
-		<div className="hidden border-separate border-b bg-background md:block">
+		<div className="hidden border-separate border-b bg-background md:flex justify-center">
 			<nav className="container flex items-center justify-between px-8">
 				<div className="flex h-[80px] min-h-[60px] items-center gap-x-4">
 					<Logo />
